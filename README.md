@@ -1,41 +1,21 @@
-# Quasar App (quasar-project)
+# Objectif Thunes
 
-A Quasar Project
+***
+## 🔧 1 - Setup
 
-## Install the dependencies
-```bash
-yarn
-# or
-npm install
-```
+You'll need the following tools :
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
+- Quasar CLI ([link](https://quasar.dev/start/quasar-cli))
+- Tauri and Rust ([link](https://tauri.app/fr/))
 
+Once everything is setup :
 
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
-```
+- Run `git init`
+- Clone the project
+- Run `npm install`
 
+***
+## 🚀 2 - Commands
 
-### Format the files
-```bash
-yarn format
-# or
-npm run format
-```
-
-
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+- Run in development : `npm run tauri dev`
+- Build : `npm run tauri build`
