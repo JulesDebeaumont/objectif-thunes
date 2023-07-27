@@ -56,15 +56,16 @@ async function getThuneConfig() {
 
 // computeds
 const sumOfGrowthConfig = computed(() => {
- return (
-  thuneConfig.value?.data.reduce((acc, growthReduce) => {
-   if (growthReduce.direction === 'down') {
-    return acc - growthReduce.amount;
-   } else {
-    return acc + growthReduce.amount;
-   }
-  }, 0) ?? 0
- );
+ if (thuneConfig.value === null) {
+  return 0;
+ }
+ return thuneConfig.value.data.reduce((acc, growthReduce) => {
+  if (growthReduce.direction === 'down') {
+   return acc - growthReduce.amount;
+  } else {
+   return acc + growthReduce.amount;
+  }
+ }, 0);
 });
 
 // lifeCycle

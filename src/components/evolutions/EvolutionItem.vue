@@ -96,23 +96,30 @@ function generateNewGrowth() {
  };
  return defaultNewGrowth;
 }
-function getSumIcon() {
+
+// computeds
+const getSumIcon = computed(() => {
  const outputIcon = {
   up: { name: 'trending_up', color: 'positive' },
   down: { name: 'trending_down', color: 'negative' },
  };
- if (sumAmountGrowth.value > 0) {
+ if (configThuneWithSumGrowthAmount.value > 0) {
   return outputIcon.up;
  } else {
   return outputIcon.down;
  }
-}
-
-// computeds
+});
 const sumAmountGrowth = computed(() => {
  return evolutionRef.value.data.reduce((acc, growthReduce) => {
-  return acc + growthReduce.amount;
+  if (growthReduce.direction === 'down') {
+   return acc - growthReduce.amount;
+  } else {
+   return acc + growthReduce.amount;
+  }
  }, 0);
+});
+const configThuneWithSumGrowthAmount = computed(() => {
+ return props.thuneConfigAmount + sumAmountGrowth.value;
 });
 </script>
 
@@ -135,15 +142,15 @@ const sumAmountGrowth = computed(() => {
    <div class="flex row no-wrap items-center q-pb-md">
     <span class="text-h6">{{ dateToLocalString(evolutionRef.createdAt) }}</span>
     <q-icon
-     :name="getSumIcon().name"
-     :color="getSumIcon().color"
+     :name="getSumIcon.name"
+     :color="getSumIcon.color"
      size="sm"
      class="q-pl-sm"
     />
-    <span :class="`text-${getSumIcon().color} text-body1 q-ml-xs`">
-     {{ Math.abs(props.thuneConfigAmount - sumAmountGrowth) }}
+    <span :class="`text-${getSumIcon.color} text-body1 q-ml-xs`">
+     {{ props.thuneConfigAmount + sumAmountGrowth }}
      <q-tooltip>
-      {{ props.thuneConfigAmount }} - {{ sumAmountGrowth }} =
+      {{ props.thuneConfigAmount }} + ({{ sumAmountGrowth }}) =
       {{ Math.abs(props.thuneConfigAmount - sumAmountGrowth) }}
      </q-tooltip>
     </span>
